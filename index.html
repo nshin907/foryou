@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>for alex :&gt;</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- floating background hearts, shared decorative layer -->
+  <div class="floaties" id="floaties" aria-hidden="true"></div>
+
+  <!-- SCREEN 1 : first name -->
+  <section class="screen active" id="screen-1" data-bg="pink">
+    <div class="card">
+      <p class="eyebrow">wait wait—</p>
+      <h1 class="card-title">prove it's you <span class="nowrap">:&gt;</span></h1>
+      <p class="card-question">what's your name?</p>
+      <form class="answer-form" id="form-1" autocomplete="off">
+        <input type="text" id="input-1" class="cute-input" placeholder="first name" />
+        <button type="submit" class="cute-btn">next <span class="btn-heart">♡</span></button>
+      </form>
+      <p class="error-msg" id="error-1">&nbsp;</p>
+    </div>
+  </section>
+
+  <!-- SCREEN 2 : boyfriend name -->
+  <section class="screen" id="screen-2" data-bg="lavender">
+    <div class="card">
+      <p class="eyebrow">hi alex,</p>
+      <h1 class="card-title">hmm... suspicious <span class="nowrap">😏</span></h1>
+      <p class="card-question">who's this boyfriend of yours?</p>
+      <form class="answer-form" id="form-2" autocomplete="off">
+        <input type="text" id="input-2" class="cute-input" placeholder="first name" />
+        <button type="submit" class="cute-btn">next <span class="btn-heart">♡</span></button>
+      </form>
+      <p class="error-msg" id="error-2">&nbsp;</p>
+    </div>
+  </section>
+
+  <!-- SCREEN 3 : the date -->
+  <section class="screen" id="screen-3" data-bg="peach">
+    <div class="card card-wide">
+      <p class="eyebrow">almost there</p>
+      <h1 class="card-title">when did you two meet?</h1>
+
+      <div class="wheel-picker" id="wheel-picker">
+        <div class="wheel-highlight" aria-hidden="true"></div>
+        <div class="wheel-col" id="col-month">
+          <div class="wheel-list" id="list-month"></div>
+        </div>
+        <div class="wheel-col" id="col-day">
+          <div class="wheel-list" id="list-day"></div>
+        </div>
+        <div class="wheel-col" id="col-year">
+          <div class="wheel-list" id="list-year"></div>
+        </div>
+      </div>
+
+      <button type="button" class="cute-btn" id="date-confirm">that's it <span class="btn-heart">♡</span></button>
+      <p class="error-msg" id="error-3">&nbsp;</p>
+    </div>
+  </section>
+
+  <!-- SCREEN 4 : secret code -->
+  <section class="screen" id="screen-4" data-bg="mint">
+    <div class="card">
+      <p class="eyebrow">last thing, promise</p>
+      <h1 class="card-title">one secret code <span class="nowrap">🤫</span></h1>
+      <p class="card-question">only you know this one...</p>
+      <form class="answer-form" id="form-4" autocomplete="off">
+        <input type="text" id="input-4" class="cute-input" placeholder="enter code" />
+        <button type="submit" class="cute-btn">unlock <span class="btn-heart">♡</span></button>
+      </form>
+      <p class="error-msg" id="error-4">&nbsp;</p>
+    </div>
+  </section>
+
+  <!-- MAIN PAGE -->
+  <section class="screen" id="screen-main" data-bg="sky">
+    <div class="hero">
+      <h1 class="hero-title">welcome alex <span class="nowrap">💕</span></h1>
+      <p class="hero-sub">we've been expecting you</p>
+      <div class="scroll-hint">
+        <span>keep scrolling</span>
+        <div class="scroll-arrow">⌄</div>
+      </div>
+    </div>
+
+    <div class="content-wrap">
+      <button type="button" class="card card-photo" id="photo-trigger" aria-haspopup="dialog" aria-expanded="false">
+        <div class="heart-frame-wrap">
+          <div class="heart-frame">
+            <img src="alextitle.png" alt="alex and her girlfriend" id="heart-photo" />
+          </div>
+        </div>
+        <p class="photo-caption">est. 9.28.24 <span class="nowrap">♡</span></p>
+        <p class="photo-hint">open</p>
+      </button>
+    </div>
+  </section>
+
+  <!-- BOOK / NEWSPAPER OVERLAY (opens when the heart photo is clicked) -->
+  <div class="book-overlay" id="book-overlay" role="dialog" aria-modal="true" aria-label="our story">
+    <div class="book-paper" id="book-paper">
+      <button type="button" class="book-close" id="book-close" aria-label="close">✕</button>
+
+      <div class="book-content">
+
+        <!-- FRONT COVER -->
+        <section class="book-page book-cover">
+          <h2 class="book-heading">the alex &amp; nathan times</h2>
+        </section>
+
+        <!-- ARTICLE #1 — JUNE 2024 -->
+        <section class="book-page newspaper-page">
+          <header class="paper-masthead">
+            <div class="masthead-top">
+              <span>VOL. I</span>
+              <span class="masthead-name">THE ALASKA GAZETTE</span>
+              <span>NO. 1</span>
+            </div>
+            <div class="masthead-rule masthead-rule-thick"></div>
+            <div class="masthead-sub">
+              <span>JUNE 2024</span>
+              <span>RELATIONSHIP DESK</span>
+              <span>SIXTY-SEVEN CENTS</span>
+            </div>
+            <div class="masthead-rule"></div>
+          </header>
+
+          <article class="news-article">
+            <h3 class="headline">Local Visitor and Alaskan Girl Spotted Together Throughout the Week — Coincidence or Something More?</h3>
+            <p class="subheadline">A lost fanny pack, a few unexpected adventures, and a growing interest between two people who were supposed to just be getting to know each other.</p>
+
+            <figure class="news-figure">
+              <img src="axe.png" alt="Nathan and Alex axe throwing" id="axe-photo" />
+              <figcaption>Nathan and Alex during one of the week's many suspiciously fun activities — axe throwing.</figcaption>
+            </figure>
+
+            <div class="news-body">
+              <p><span class="dateline">ALASKA — JUNE 2024 —</span> Nathan and Alex weren't exactly strangers when they first met.</p>
+
+              <p>Through mutual friends, the two had already seen pictures and videos of each other before meeting in person. They knew of each other, but neither probably expected that Nathan's trip to Alaska would give them the chance to actually get to know one another.</p>
+
+              <p>Nathan had traveled to Alaska for his friend's wedding and was spending time with friends, including Alex. Then, during one of their days hanging out, Nathan managed to lose something slightly less important than his dignity: his fanny pack.</p>
+
+              <p>The small bag Nathan carried around had disappeared somewhere during the day, and by the next day, the search was officially underway.</p>
+
+              <p>Luckily, Alex was the only person available to help.</p>
+
+              <p>The two drove around looking for it, stopping at thrift shops and checking different places where it might have been left behind. Eventually, after the search, Nathan found his fanny pack. Mission accomplished.</p>
+
+              <p>But something else had happened along the way.</p>
+
+              <p>What started as Alex simply helping Nathan find a lost fanny pack gave the two an unexpected opportunity to spend time together — and apparently, neither of them was in much of a hurry to stop.</p>
+
+              <p>Over the rest of Nathan's trip, the two continued spending time together. They went axe throwing, grabbed food, went shopping, and attended a jazz concert.</p>
+
+              <p>With each outing, the two seemed to become more comfortable around each other. What began as finally meeting someone they had only seen through their friends' pictures and videos was turning into something a little more interesting.</p>
+
+              <p>By Nathan's final day in Alaska, there was clearly a story developing. But with Nathan leaving soon, one question remained: would their growing interest in each other continue after he left Alaska?</p>
+
+              <p class="kicker-line">At the moment, no one knows. <em>But this publication will be watching closely.</em></p>
+
+              <aside class="news-desk">
+                <div class="news-desk-header">STORY STATUS: DEVELOPING</div>
+                <ul class="news-desk-list">
+                  <li><strong>Status:</strong> 👀 Developing Story</li>
+                  <li><strong>Location:</strong> Alaska</li>
+                  <li><strong>People involved:</strong> Nathan + Alex</li>
+                  <li><strong>Current situation:</strong> Nathan leaves Alaska today</li>
+                  <li><strong>Next major event:</strong> Further developments are expected</li>
+                </ul>
+              </aside>
+            </div>
+          </article>
+        </section>
+
+        <!-- ARTICLE #2 — SUMMER 2024 -->
+        <section class="book-page newspaper-page">
+          <header class="paper-masthead">
+            <div class="masthead-top">
+              <span>VOL. I</span>
+              <span class="masthead-name">THE ALASKA GAZETTE</span>
+              <span>NO. 2</span>
+            </div>
+            <div class="masthead-rule masthead-rule-thick"></div>
+            <div class="masthead-sub">
+              <span>SUMMER 2024</span>
+              <span>RELATIONSHIP DESK</span>
+              <span>SIXTY-SEVEN CENTS</span>
+            </div>
+            <div class="masthead-rule"></div>
+          </header>
+
+          <article class="news-article">
+            <h3 class="headline">Two Months Later: Alaska and Atlanta Connection Continues to Grow</h3>
+            <p class="subheadline">After leaving Alaska, Nathan and Alex discover that distance may not be enough to stop their growing connection.</p>
+
+            <figure class="news-figure">
+              <img src="face.png" alt="Nathan and Alex" id="face-photo" />
+              <figcaption>The face on the other end of every nightly call.</figcaption>
+            </figure>
+
+            <div class="news-body">
+              <p><span class="dateline">ATLANTA, GEORGIA &amp; WASHINGTON — SUMMER 2024 —</span> In the last issue, readers were left with one important question: would Nathan and Alex's interest in each other continue to grow after Nathan left Alaska?</p>
+
+              <p>The answer? It definitely did.</p>
+
+              <p>After Nathan returned home to Atlanta and Alex went to college in Washington, the two somehow managed to stay closer than ever. For nearly three months, Nathan and Alex called each other almost every day and continued keeping in touch despite being thousands of miles apart.</p>
+
+              <p>Alex was especially thankful for one important detail about college life: she had a single dorm room.</p>
+
+              <p>This meant she could talk to Nathan for as long as she wanted without having to worry about bothering a roommate.</p>
+
+              <p>Nathan, meanwhile, was simply happy that leaving Alaska didn't mean leaving Alex behind.</p>
+
+              <p>As the months passed, their conversations continued, and what began as a growing interest during one week in Alaska became something much more serious.</p>
+
+              <p>By the time September arrived, both Nathan and Alex were pretty sure they wanted to take their relationship to the next level. There was just one problem: how would they finally tell each other?</p>
+
+              <p>Fortunately, it seemed like the universe had already made plans. Their friends, Lex and Clyde, were having an engagement party in Alaska, giving Nathan and Alex the perfect reason to make the trip back and see each other again.</p>
+
+              <p>After two months apart, the two were finally going to meet again. And this time, there was more at stake than a lost fanny pack.</p>
+
+              <p class="kicker-line">Will Nathan and Alex finally reveal their feelings for each other? <em>Find out in the next issue.</em></p>
+
+              <aside class="news-desk">
+                <div class="news-desk-header">STORY STATUS: DEVELOPING</div>
+                <ul class="news-desk-list">
+                  <li><strong>Status:</strong> 👀 Developing Story</li>
+                  <li><strong>Location:</strong> Atlanta, GA &amp; Washington → Alaska</li>
+                  <li><strong>People involved:</strong> Nathan + Alex</li>
+                  <li><strong>Current situation:</strong> Feelings growing, reunion planned</li>
+                  <li><strong>Next major event:</strong> September 2024 — Alaska</li>
+                </ul>
+              </aside>
+            </div>
+          </article>
+        </section>
+
+        <!-- ARTICLE #3 — SEPTEMBER 28, 2024 (final issue) -->
+        <section class="book-page newspaper-page">
+          <header class="paper-masthead">
+            <div class="masthead-top">
+              <span>VOL. I</span>
+              <span class="masthead-name">THE ALASKA GAZETTE</span>
+              <span>NO. 3</span>
+            </div>
+            <div class="masthead-rule masthead-rule-thick"></div>
+            <div class="masthead-sub">
+              <span>SEPTEMBER 28, 2024</span>
+              <span>RELATIONSHIP DESK</span>
+              <span>SIXTY-SEVEN CENTS</span>
+            </div>
+            <div class="masthead-rule"></div>
+          </header>
+
+          <article class="news-article">
+            <h3 class="headline">Breaking News: Nathan and Alex Finally Reveal Their Feelings</h3>
+            <p class="subheadline">After months of calls, long-distance conversations, and one growing connection, the two finally get their chance to be alone.</p>
+
+            <figure class="news-figure">
+              <img src="meet.png" alt="Nathan and Alex" id="meet-photo" />
+              <figcaption>The night everything finally became official.</figcaption>
+            </figure>
+
+            <div class="news-body">
+              <p><span class="dateline">ALASKA — SEPTEMBER 2024 —</span> In the last issue, readers were left with one major question: would Nathan and Alex finally reveal their feelings for each other?</p>
+
+              <p>After two months apart, the answer was finally about to arrive.</p>
+
+              <p>Nathan and Alex had both made their way back to Alaska for Lex and Clyde's engagement party. After months of talking almost every day, the two were finally in the same place again.</p>
+
+              <p>But there was one problem. They were surrounded by friends.</p>
+
+              <p>The entire day was spent together with everyone getting ready for the engagement party. Between preparing, getting dressed, and getting everything ready, Nathan and Alex managed to find a little time to talk.</p>
+
+              <p>For Nathan, however, it wasn't quite enough. He really wanted some time alone with Alex to finally tell her how he felt. Unfortunately, the busy day and upcoming celebration gave them little opportunity to do so.</p>
+
+              <p>Then came the engagement party.</p>
+
+              <p>After celebrating with Lex and Clyde, everyone headed back to one of their friend's house. And by this point, there was really no secret left among the friend group. Everyone knew Nathan and Alex liked each other.</p>
+
+              <p>So naturally, the friends had a plan. They suggested that everyone go for a walk.</p>
+
+              <p>But as soon as they stepped outside, the plan became clear. Everyone ran away. Nathan and Alex were officially on their own.</p>
+
+              <p class="body-subhead">The Walk</p>
+
+              <p>The two began walking together, finally getting the alone time they had been waiting for.</p>
+
+              <p>Then things took an unexpected turn. Their walk led them into a dark pit and eventually into a field that was almost completely dark. Neither Nathan nor Alex was particularly confident about what was happening, and both were a little scared.</p>
+
+              <p>Then suddenly — the lights turned on.</p>
+
+              <p>The nearby lights illuminated the field, catching both of them completely off guard. They started running.</p>
+
+              <p>And somewhere in the middle of all the chaos, Nathan and Alex's hands happened to touch.</p>
+
+              <p>Nathan saw his opportunity. He slipped his hand into Alex's.</p>
+
+              <p class="body-subhead">The First Hand Hold</p>
+
+              <p>For the first time, Nathan and Alex were holding hands.</p>
+
+              <p>They slowed down and continued walking together, hand in hand. After months of talking from thousands of miles away, they were finally walking beside each other again.</p>
+
+              <p>And this time, Nathan finally said what he had been wanting to say. He told Alex that he liked her.</p>
+
+              <p>Alex's reaction made it clear that the feeling wasn't one-sided. She felt the same way.</p>
+
+              <p>The question from the previous issue had finally been answered. The interest had grown. The distance hadn't stopped it. And now, Nathan and Alex had officially told each other how they felt.</p>
+
+              <p>After spending some more time together on their walk, the two eventually returned to the house.</p>
+
+              <p>Everyone was waiting. And everyone already knew what had happened.</p>
+
+              <p>The night ended with their friends celebrating the beginning of Nathan and Alex's first official relationship.</p>
+
+              <p class="kicker-line"><em>After months of wondering, waiting, calling, and talking — Nathan and Alex were finally together.</em></p>
+            </div>
+          </article>
+        </section>
+
+        <!-- CLOSING NOTE -->
+        <section class="book-page gazette-note">
+          <p class="gazette-mark">✦</p>
+          <p class="gazette-text">It's official. From here on, it's up to Nathan and Alex to write the next issue of this story — not us. And we have a feeling they'll have some pretty fascinating headlines ahead of them.</p>
+          <p class="gazette-sign">— The Alaska Gazette</p>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
