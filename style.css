@@ -805,6 +805,169 @@ body {
 }
 
 /* =========================================================
+   MEMORIES COLLAGE
+   ========================================================= */
+.memories-page {
+  padding-top: 30px;
+}
+
+.memories-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-style: italic;
+  font-size: 24px;
+  text-align: center;
+  color: var(--ink);
+  margin: 0 0 20px;
+}
+
+.memories-collage {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--paper-edge);
+  border-radius: 10px;
+  padding: 26px 20px 14px;
+  column-count: 2;
+  column-gap: 16px;
+}
+
+.memory-photo {
+  break-inside: avoid;
+  margin: 0 0 18px;
+  background: #fff;
+  padding: 7px 7px 18px;
+  border-radius: 2px;
+  box-shadow: 0 8px 16px -6px rgba(90, 70, 70, 0.28);
+  position: relative;
+  z-index: 1;
+}
+
+.memory-photo img {
+  width: 100%;
+  display: block;
+  border-radius: 1px;
+}
+
+/* gentle alternating tilt so photos feel scattered, not gridded */
+.mp-1  { transform: rotate(-2deg); }
+.mp-2  { transform: rotate(2.5deg); }
+.mp-3  { transform: rotate(-1.5deg); }
+.mp-4  { transform: rotate(3deg); }
+.mp-5  { transform: rotate(-2.5deg); }
+.mp-6  { transform: rotate(1.5deg); }
+.mp-7  { transform: rotate(-3deg); }
+.mp-8  { transform: rotate(2deg); }
+.mp-9  { transform: rotate(-1.5deg); }
+.mp-10 { transform: rotate(2.5deg); }
+.mp-11 { transform: rotate(-2deg); }
+.mp-12 { transform: rotate(1.5deg); }
+.mp-13 { transform: rotate(-3deg); }
+.mp-14 { transform: rotate(2deg); }
+.mp-15 { transform: rotate(-1.5deg); }
+.mp-16 { transform: rotate(3deg); }
+.mp-17 { transform: rotate(-2deg); }
+
+.memory-photo:hover { transform: none; }
+
+/* handwritten-style note tucked into the collage, after the last photo */
+.memory-note {
+  break-inside: avoid;
+  margin: 0 0 18px;
+  background: #FFFDF6;
+  border: 1px solid var(--paper-edge);
+  padding: 20px 20px 18px;
+  border-radius: 4px;
+  box-shadow: 0 8px 16px -6px rgba(90, 70, 70, 0.22);
+  position: relative;
+  z-index: 1;
+  transform: rotate(-1.5deg);
+}
+
+.memory-note-heading {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--accent-text);
+  margin: 0 0 10px;
+  text-align: center;
+}
+
+.memory-note-body {
+  font-family: 'Caveat', var(--font-serif);
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--paper-ink);
+  margin: 0 0 12px;
+}
+
+.memory-note-sign {
+  font-family: 'Caveat', var(--font-serif);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--paper-ink);
+  text-align: right;
+  margin: 0;
+}
+
+/* pencil-sketch doodle stickers, scattered around the collage */
+.sticker {
+  position: absolute;
+  width: 46px;
+  height: auto;
+  fill: none;
+  stroke: var(--accent-text);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.sticker-heart {
+  top: -14px;
+  left: 8%;
+  width: 40px;
+  transform: rotate(-12deg);
+  fill: var(--accent);
+  fill-opacity: 0.35;
+}
+
+.sticker-star {
+  top: 18%;
+  right: -10px;
+  width: 42px;
+  transform: rotate(10deg);
+}
+
+.sticker-swirl {
+  bottom: 30%;
+  left: -14px;
+  width: 50px;
+  transform: rotate(-6deg);
+}
+
+.sticker-pup {
+  bottom: -18px;
+  right: 12%;
+  width: 60px;
+  transform: rotate(4deg);
+}
+
+.sticker-flower {
+  top: 42%;
+  left: 42%;
+  width: 34px;
+  opacity: 0.6;
+}
+
+@media (min-width: 560px) {
+  .memories-collage { column-count: 3; }
+}
+
+/* =========================================================
    RESPONSIVE
    ========================================================= */
 @media (max-width: 480px) {
@@ -820,6 +983,9 @@ body {
   .headline { font-size: 21px; }
   .news-body { column-count: 1; column-rule: none; }
   .news-desk-list { columns: 1; }
+  .memories-collage { column-count: 2; column-gap: 10px; padding: 20px 12px 10px; }
+  .sticker { width: 32px; }
+  .sticker-pup { width: 44px; }
 }
 
 /* Respect reduced motion */
