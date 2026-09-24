@@ -79,7 +79,7 @@ document.getElementById("form-1").addEventListener("submit", (e) => {
     clearError("error-1");
     goToScreen("screen-2");
   } else {
-    showError("error-1", "nope, try again 👀");
+    showError("error-1", "nope, try again ");
   }
 });
 
@@ -94,7 +94,7 @@ document.getElementById("form-2").addEventListener("submit", (e) => {
     goToScreen("screen-3");
     applyWheelDefaultsOnceVisible();
   } else {
-    showError("error-2", "wrong guy, try again 😏");
+    showError("error-2", "wrong guy, try again ");
   }
 });
 
@@ -108,6 +108,7 @@ const MONTHS = [
 
 const ITEM_HEIGHT = 42;
 
+// ---- finite wheel (used for YEAR, which has real bounds) ----
 function buildWheel(listId, items, valueForIndex) {
   const list = document.getElementById(listId);
   list.innerHTML = "";
@@ -159,24 +160,100 @@ function setupWheelScroll(colId, listId, defaultIndex, onChange) {
   });
 }
 
+// ---- infinite wheel (used for MONTH + DAY, which should loop) ----
+// The trick: repeat the item set several times, let the user scroll
+// freely, and once they stop scrolling, silently re-center back into
+// the middle copy (an instant, invisible jump since every copy looks
+// identical) so there's always room to keep scrolling in both directions.
+function buildWheelInfinite(listId, items, valueForIndex, copies) {
+  const list = document.getElementById(listId);
+  list.innerHTML = "";
+  const frag = document.createDocumentFragment();
+  for (let c = 0; c < copies; c++) {
+    items.forEach((label, i) => {
+      const div = document.createElement("div");
+      div.className = "wheel-item";
+      div.textContent = label;
+      div.dataset.value = valueForIndex(i);
+      frag.appendChild(div);
+    });
+  }
+  list.appendChild(frag);
+  return list;
+}
+
+function setupWheelScrollInfinite(colId, listId, setLength, defaultSetIndex, onChange, copies) {
+  const col = document.getElementById(colId);
+  const list = document.getElementById(listId);
+  const items = list.children;
+  const middleCopy = Math.floor(copies / 2);
+
+  function updateActive(index) {
+    for (let i = 0; i < items.length; i++) {
+      items[i].classList.toggle("is-active", i === index);
+    }
+    const setIdx = ((index % setLength) + setLength) % setLength;
+    onChange(items[index].dataset.value, setIdx);
+  }
+
+  function currentIndex() {
+    return Math.max(0, Math.min(items.length - 1, Math.round(col.scrollTop / ITEM_HEIGHT)));
+  }
+
+  let scrollTimer = null;
+  col.addEventListener("scroll", () => {
+    updateActive(currentIndex());
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      const idx = currentIndex();
+      const setIdx = ((idx % setLength) + setLength) % setLength;
+      const copyIdx = Math.floor(idx / setLength);
+
+      if (copyIdx === middleCopy) {
+        // already centered in the safe middle copy — just snap cleanly
+        col.scrollTo({ top: idx * ITEM_HEIGHT, behavior: "smooth" });
+        updateActive(idx);
+      } else {
+        // recenter into the middle copy — same visual item, invisible jump
+        const targetIdx = middleCopy * setLength + setIdx;
+        col.scrollTop = targetIdx * ITEM_HEIGHT;
+        updateActive(targetIdx);
+      }
+    }, 120);
+  });
+
+  wheelAppliers.push(() => {
+    const targetIdx = middleCopy * setLength + defaultSetIndex;
+    col.scrollTop = targetIdx * ITEM_HEIGHT;
+    updateActive(targetIdx);
+  });
+}
+
 // The picker always starts on a NEUTRAL date (Jan 1, 2000) so it never
 // gives away the answer.
 let dateState = { month: null, day: null, year: null };
 
 const WHEEL_START_YEAR = 1990;
 const WHEEL_END_YEAR = 2026;
+const WHEEL_COPIES = 5;
 
 function initDatePicker() {
-  // months — default index 0 -> January
-  buildWheel("list-month", MONTHS, (i) => i + 1);
-  setupWheelScroll("col-month", "list-month", 0, (v) => (dateState.month = Number(v)));
+  // months — infinite loop, default set-index 0 -> January
+  buildWheelInfinite("list-month", MONTHS, (i) => i + 1, WHEEL_COPIES);
+  setupWheelScrollInfinite(
+    "col-month", "list-month", MONTHS.length, 0,
+    (v) => (dateState.month = Number(v)), WHEEL_COPIES
+  );
 
-  // days — default index 0 -> day 1
+  // days — infinite loop, default set-index 0 -> day 1
   const dayLabels = Array.from({ length: 31 }, (_, i) => String(i + 1));
-  buildWheel("list-day", dayLabels, (i) => i + 1);
-  setupWheelScroll("col-day", "list-day", 0, (v) => (dateState.day = Number(v)));
+  buildWheelInfinite("list-day", dayLabels, (i) => i + 1, WHEEL_COPIES);
+  setupWheelScrollInfinite(
+    "col-day", "list-day", dayLabels.length, 0,
+    (v) => (dateState.day = Number(v)), WHEEL_COPIES
+  );
 
-  // years — default -> 2000
+  // years — bounded (not infinite), default -> 2000
   const yearLabels = [];
   for (let y = WHEEL_START_YEAR; y <= WHEEL_END_YEAR; y++) yearLabels.push(String(y));
   buildWheel("list-year", yearLabels, (i) => WHEEL_START_YEAR + i);
@@ -200,7 +277,7 @@ document.getElementById("date-confirm").addEventListener("click", () => {
     clearError("error-3");
     goToScreen("screen-4");
   } else {
-    showError("error-3", "not the day, scroll again 🙈");
+    showError("error-3", "not the day, scroll again");
   }
 });
 
@@ -214,7 +291,7 @@ document.getElementById("form-4").addEventListener("submit", (e) => {
     clearError("error-4");
     goToScreen("screen-main");
   } else {
-    showError("error-4", "that's not it, try again 🙊");
+    showError("error-4", "hint: look on the note");
   }
 });
 
@@ -242,6 +319,10 @@ placeholderFor(document.getElementById("heart-photo"), "drop alextitle.png here 
 placeholderFor(document.getElementById("axe-photo"), "drop axe.png here \u2661");
 placeholderFor(document.getElementById("face-photo"), "drop face.png here \u2661");
 placeholderFor(document.getElementById("meet-photo"), "drop meet.png here \u2661");
+
+document.querySelectorAll(".memory-photo img").forEach((img) => {
+  placeholderFor(img, "photo missing \u2661");
+});
 
 // =========================================================
 // BOOK / NEWSPAPER OVERLAY — opens when the heart photo is clicked
